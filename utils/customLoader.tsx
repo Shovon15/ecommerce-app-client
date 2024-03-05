@@ -2,7 +2,7 @@
 
 import { useLoadUserQuery } from "@/redux/feature/api/apiSlice";
 import { useEffect, useState } from "react";
-import SyncLoader from "react-spinners/SyncLoader";
+
 
 
 type CustomPros = {
@@ -27,12 +27,13 @@ export const Custom = ({ children }: CustomPros) => {
             {
                 loading ?
                     <div className="flex justify-center items-center min-h-screen">
-                        <SyncLoader
+                        {/* <SyncLoader
                             color="#053B50"
                             size={10}
                             aria-label="Loading Spinner"
                             data-testid="loader"
-                        />
+                        /> */}
+                        <p>loading...</p>
                     </div>
                     :
                     <>{children}</>

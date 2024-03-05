@@ -16,7 +16,7 @@ import { AuthModal } from "./authModal";
 import { useRegisterMutation } from "@/redux/feature/auth/authApi";
 import { FormError } from "@/components/fromError";
 import { FormSuccess } from "@/components/fromSuccess";
-import ClipLoader from "react-spinners/clipLoader";
+
 
 type SignupProp = {
     setRoute: (route: string) => void;
@@ -126,7 +126,7 @@ export const SignupForm = ({ setRoute, setModalOpen }: SignupProp) => {
                     <Button
                         disabled={isLoading}
                         type="submit" className="w-full">
-                        {isLoading ? <ClipLoader /> : "Signup"}
+                        {isLoading ? "loading..." : "Signup"}
                     </Button>
                     <p>Already have an account? <span
                         onClick={() => setRoute("login")}
