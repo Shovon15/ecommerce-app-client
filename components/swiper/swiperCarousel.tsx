@@ -102,7 +102,8 @@ const SwiperCarousel = () => {
                 <Swiper>
                     {data.map((item) => (
                         <SwiperSlide key={item.id} className="p-0.5 rounded-lg">
-                            <ProductCard product={item} />
+                            <>p</>
+                            {/* <ProductCard product={item} /> */}
                         </SwiperSlide>
                     ))}
                 </Swiper>
