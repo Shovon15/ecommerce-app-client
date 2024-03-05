@@ -41,6 +41,19 @@ type SocialAuthData = {
 	avatar: string;
 };
 
+
+
+let token = "";
+
+// Check if localStorage is available
+if (typeof window !== 'undefined') {
+    const storedToken = localStorage.getItem('access_token');
+
+    if (storedToken) {
+        token = storedToken;
+    }
+}
+
 export const authApi = apiSlice.injectEndpoints({
 	endpoints: (builder) => ({
 		register: builder.mutation<RegisterResponse, RegistrationData>({
@@ -140,7 +153,10 @@ export const authApi = apiSlice.injectEndpoints({
 		logout: builder.mutation({
 			query: () => ({
 				url: "logout",
-				method: "GET",
+				method: "POST",
+				body:{
+					token
+				},
 				credentials: "include" as const,
 			}),
 			onQueryStarted: async (arg, { queryFulfilled, dispatch }) => {

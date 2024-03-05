@@ -13,6 +13,11 @@ import { buttonVariants } from "../ui/button";
 import Link, { LinkProps } from "next/link";
 import { docsConfig } from "@/config/docs";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { userLogedOut } from "@/redux/feature/auth/authSlice";
+import toast from "react-hot-toast";
+import { useLogoutMutation } from "@/redux/feature/auth/authApi";
+import { useEffect } from "react";
 
 type IUser = {
     name: string;
@@ -26,6 +31,33 @@ type UserMenuProp = {
 };
 
 export const UserMenu = ({ user }: UserMenuProp) => {
+    const dispatch = useDispatch();
+    const router = useRouter();
+
+    const [logout, { isSuccess, isError }] = useLogoutMutation();
+
+
+    useEffect(() => {
+        if (isSuccess) {
+            toast.success("logout");
+            router.push("/");
+        }
+
+        if (isError) {
+            toast.success("Something went wrong");
+        }
+    }, [isSuccess, isError, router]);
+
+    const handleLogout = async () => {
+        await logout({});
+    };
+
+    // const handleLogout = () => {
+    //     dispatch(userLogedOut({}));
+    //     toast.success("logour")
+    //     router.push("/");
+    // };
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild className="cursor-pointer">
@@ -55,10 +87,10 @@ export const UserMenu = ({ user }: UserMenuProp) => {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                    <Link href="/">
+                    <div onClick={handleLogout}>
                         <LogOut className="mr-2 h-4 w-4" />
                         <span>Logout</span>
-                    </Link>
+                    </div>
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>

@@ -12,6 +12,21 @@ type LoadUserResponse = {
     };
 };
 
+
+let token = "";
+
+
+// Check if localStorage is available
+if (typeof window !== 'undefined') {
+    const storedToken = localStorage.getItem('access_token');
+
+
+    if (storedToken) {
+        // If token and user are found in localStorage, parse and assign them
+        token = storedToken;
+    }
+}
+
 export const apiSlice = createApi({
     reducerPath: "api",
     baseQuery: fetchBaseQuery({
@@ -27,14 +42,17 @@ export const apiSlice = createApi({
         }),
         loadUser: builder.query<LoadUserResponse, void>({
             query: () => ({
-                url: "user-info",
-                method: "GET",
+                url: `user-info`,
+                method: "POST",
+                body: {
+                    token
+                },
                 credentials: "include" as const,
             }),
             onQueryStarted: async (arg, { queryFulfilled, dispatch }) => {
                 try {
                     const result = await queryFulfilled;
-                    console.log(result, "result from load user")
+                    // console.log(result, "result from load user")
                     dispatch(
                         userLogedIn({
                             accessToken: result.data.payload?.accessToken,

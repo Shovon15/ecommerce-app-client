@@ -21,11 +21,12 @@ import { SignupForm } from "./signupForm";
 import { FormError } from "@/components/fromError";
 import { FormSuccess } from "@/components/fromSuccess";
 import { useLoginMutation } from "@/redux/feature/auth/authApi";
+import toast from "react-hot-toast";
 
 
 type LoginProp = {
-	setRoute: (route: string) => void;
-	setModalOpen: (modalOpen: boolean) => void;
+	setRoute?: (route: string) => void;
+	setModalOpen?: (modalOpen: boolean) => void;
 };
 
 export const LoginForm = ({ setRoute, setModalOpen }: LoginProp) => {
@@ -46,9 +47,9 @@ export const LoginForm = ({ setRoute, setModalOpen }: LoginProp) => {
 		if (isSuccess) {
 			const message = data?.message || "login succcessful";
 			setLoginSuccess(message);
-			// toast.success(message);
+			router.push("/");
+			toast.success(message);
 			// router.push("/verification");
-			// router.push("/profile");
 			// console.log(data?.payload.user?.role ==="user")
 		}
 
@@ -65,8 +66,6 @@ export const LoginForm = ({ setRoute, setModalOpen }: LoginProp) => {
 
 	const onSubmit = async (values: z.infer<typeof LoginSchema>) => {
 		await login(values);
-
-		// console.log({ isError, error, data, isSuccess, isLaoding });
 	};
 
 	return (
@@ -128,9 +127,15 @@ export const LoginForm = ({ setRoute, setModalOpen }: LoginProp) => {
 					</Button>
 					<p>
 						Don&apos;t have an account?{" "}
-						<span onClick={() => setRoute("signup")} className="cursor-pointer underline">
+						{
+							setRoute ?
+								<span onClick={() => setRoute("signup")} className="cursor-pointer underline">
 							signup
-						</span>
+								</span> :
+								<Link href="/signup" className="cursor-pointer underline">
+									signup
+								</Link>
+						}
 					</p>
 				</form>
 			</Form>

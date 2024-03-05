@@ -59,7 +59,10 @@ export const ClientNavbar = ({ handleSidebar, handleCart, isSidebarOpen, isCartO
                         />
                     ) : (
                         <>
-                            {route === "login" && (
+                                <Button asChild>
+                                    <Link href="/login">login</Link>
+                                </Button>
+                                {/* {route === "login" && (
                                 <AuthModal
                                     route={route}
                                     modalOpen={authModalOpen}
@@ -85,7 +88,7 @@ export const ClientNavbar = ({ handleSidebar, handleCart, isSidebarOpen, isCartO
                                     handleOpen={() => setAuthModalOpen(true)}
                                     formComponent={<VerificationForm setRoute={setRoute} setModalOpen={setAuthModalOpen} />}
                                 />
-                            )}
+                            )} */}
                         </>
                     )}
                     {

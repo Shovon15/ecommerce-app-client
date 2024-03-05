@@ -19,15 +19,17 @@ import { FormSuccess } from "@/components/fromSuccess";
 
 
 type SignupProp = {
-    setRoute: (route: string) => void;
-    setModalOpen: (modalOpen: boolean) => void;
+    setRoute?: (route: string) => void;
+    setModalOpen?: (modalOpen: boolean) => void;
 }
 
 export const SignupForm = ({ setRoute, setModalOpen }: SignupProp) => {
     const [success, setSuccess] = React.useState("");
     const [error, setError] = React.useState("");
     const [register, { data, isSuccess, error: signupError, isLoading }] = useRegisterMutation();
+    const router = useRouter();
 
+    
     const form = useForm<z.infer<typeof RegisterSchema>>({
         resolver: zodResolver(RegisterSchema),
         defaultValues: {
@@ -41,8 +43,12 @@ export const SignupForm = ({ setRoute, setModalOpen }: SignupProp) => {
         if (isSuccess) {
             const message = data?.message || "signup succcessful";
             setSuccess(message);
-            setRoute("varification")
-            // router.push('/verification');
+            if (setRoute) {
+                setRoute("varification")
+            } else {
+                router.push('/verification');
+
+            }
         }
 
         if (signupError) {
@@ -52,7 +58,7 @@ export const SignupForm = ({ setRoute, setModalOpen }: SignupProp) => {
                 setError(errorMessage);
             }
         }
-    }, [signupError, isSuccess, data?.message]);
+    }, [signupError, isSuccess, data?.message, setRoute, router]);
 
     const onSubmit = async (values: z.infer<typeof RegisterSchema>) => {
         setSuccess("");
@@ -128,13 +134,23 @@ export const SignupForm = ({ setRoute, setModalOpen }: SignupProp) => {
                         type="submit" className="w-full">
                         {isLoading ? "loading..." : "Signup"}
                     </Button>
+
+                    {
+                        setRoute ?
                     <p>Already have an account? <span
-                        onClick={() => setRoute("login")}
-                        className="cursor-pointer underline"
-                    >
-                        Login
-                    </span>
+                                onClick={() => setRoute("login")}
+                                className="cursor-pointer underline"
+                            >
+                                Login
+                            </span>
+                            </p> : <p>Already have an account? <Link href="/login"
+
+                                className="cursor-pointer underline"
+                            >
+                                Login
+                            </Link>
                     </p>
+                    }
                 </form>
             </Form>
         </CardWrapper>

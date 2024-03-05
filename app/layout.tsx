@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./provider";
 import { Custom } from "@/utils/customLoader";
-
+import { Toaster } from 'react-hot-toast';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -22,6 +22,10 @@ export default function RootLayout({
         <Providers>
           <Custom>{children}</Custom>
         </Providers>
+        <Toaster
+          position="top-center"
+          reverseOrder={false}
+        />
       </body>
     </html>
   );
