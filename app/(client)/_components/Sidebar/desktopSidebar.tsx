@@ -26,9 +26,17 @@ type SidebarProps = {
 
 export default function DesktopSidebar({ handleSidebar, isSidebarOpen }: SidebarProps) {
 
+    // const paths = usePathname();
+    // const pathNames = paths.split("/").filter((path) => path || "");
+    // const currentPathName = `/${pathNames.slice(0, pathNames.length + 1).join("/")}`;
+
     const paths = usePathname();
+    let currentPathName = '/'; // Default value in case paths is null or undefined
+
+    if (paths) {
     const pathNames = paths.split("/").filter((path) => path || "");
-    const currentPathName = `/${pathNames.slice(0, pathNames.length + 1).join("/")}`;
+    currentPathName = `/${pathNames.slice(0, pathNames.length + 1).join("/")}`;
+}
 
     return (
         <div className={`${isSidebarOpen ? "opacity-1" : "opacity-0"} min-h-screen border bg-secondary p-5 `}>
