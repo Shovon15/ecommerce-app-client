@@ -94,7 +94,7 @@ const WomenCollection = [
 
 
 const CategoryPage = ({ params }: Props) => {
-    const [products, setProducts] = useState([])
+    const [products, setProducts] = useState([{}])
 
     useEffect(() => {
         if (params.slug === "mans_collection") {
@@ -110,7 +110,7 @@ const CategoryPage = ({ params }: Props) => {
             <p>CategoryPage</p>
             <p>Post: {params.slug}</p>
 
-            {
+            {/* {
                 products.length > 0 &&
                 products.map((product, i) => (
                     <div key={i}>
@@ -118,7 +118,7 @@ const CategoryPage = ({ params }: Props) => {
                     </div>
 
                 ))
-            }
+            } */}
         </div>
     );
 };

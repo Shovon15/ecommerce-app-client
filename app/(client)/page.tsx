@@ -51,7 +51,10 @@ const HomePage = (props: Props) => {
                 <div className='grid grid-cols-4 gap-4'>
                     {
                         Data.map((item, i) => (
-                            <ProductCard key={i} product={item} />
+                            <>
+                                p
+                            </>
+                            // <ProductCard key={i} product={item} />
                         ))
                     }
                 </div>
