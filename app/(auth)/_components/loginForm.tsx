@@ -21,7 +21,8 @@ import { SignupForm } from "./signupForm";
 import { FormError } from "@/components/fromError";
 import { FormSuccess } from "@/components/fromSuccess";
 import { useLoginMutation } from "@/redux/feature/auth/authApi";
-import ClipLoader from "react-spinners/clipLoader"
+import ClipLoader from "react-spinners/clipLoader";
+// import ClipLoader from "react-spinners/clipLoader"
 
 type LoginProp = {
 	setRoute: (route: string) => void;
